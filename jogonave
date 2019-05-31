@@ -33,10 +33,14 @@ nivel=1
 let imgnave;
 var raio=20
 var barreiradepontos=1000
+tela=1
 
 
 function preload() {
-  fundo=loadImage('Background-1.png')
+  //fundotela1=loadImage('fundotela1')
+ //fundotela2=loadImage('fundotela2')
+ // fundotela3=loadImage('fundotela3')
+  //fundotela4=loadImage('fundotela4')
   imgnave = loadImage('ship_87.png');
   imginimigo = loadImage('ship_25.png');
 }
@@ -50,7 +54,17 @@ function setup() {
 
 function draw() {
 
-  
+  if(tela==1){ 
+   background(0);
+    textSize(32); 
+    fill(0,100,500);
+    text("JOGO DA NAVE ", 400, 300);
+    text("press ENTER para jogar ", 360, 450)
+    if (keyIsDown(ENTER) ) {
+       tela = 2;  
+    } 
+  }
+  if(tela==2){
   background(0);
   imageMode(CENTER)
   //ellipse(ex,ey,40,40)  
@@ -196,14 +210,14 @@ if(dist(tx, ty, qx3, qy3)<raio*3){
    qx3=random(1080,1500)
   qy3=random(0,700)
   }
-    if(dist(ex, ey, qx3, qy3)<raio*3){
+    if(dist(ex, ey, qx3, qy3)<raio){
     ex=50
     ey=350
     vidas=vidas-1
     qx3=random(1080,1500)
     qy3=random(0,700)
     }
-    if(dist(ex, ey, qx4, qy4)<raio*3){
+    if(dist(ex, ey, qx4, qy4)<raio){
     ex=50
     ey=350
     vidas=vidas-1
@@ -225,20 +239,20 @@ if(dist(tx, ty, qx3, qy3)<raio*3){
     velvertical=12
     //ellipse(qx5,qy5,2*raio,2*raio)
     image(imginimigo,qx5,qy5)
-      qx5=qx5-random(20)
+      qx5=qx5-random(15)
     if(qx5<=0){
         qx5=random(1080,1500)
         qy5=random(0,700)
     
     }
-    if(dist(ex, ey, qx6,qy6)<raio*3){
+    if(dist(ex, ey, qx6,qy6)<raio){
     ex=50
     ey=350
     vidas=vidas-1
     qx6=random(1080,1500)
     qy6=random(0,700)
     }
-    if(dist(ex, ey, qx5, qy5)<raio*3){
+    if(dist(ex, ey, qx5, qy5)<raio){
     ex=50
     ey=350
     vidas=vidas-1
@@ -246,13 +260,13 @@ if(dist(tx, ty, qx3, qy3)<raio*3){
     qy5andom(0,700)
     }
     if(dist(tx, ty, qx5, qy5)<raio*3){
-   pontos=pontos+50
+   pontos=pontos+25
    qx5=random(1080,1500)
   qy5=random(0,700)
   }
     //ellipse(qx6,qy6,2*raio,2*raio)
     image(imginimigo,qx6,qy6)
-      qx6=qx6-random(20)
+      qx6=qx6-random(15)
     if(qx6<=0){
         qx6=random(1080,1500)
         qy6=random(0,700)
@@ -260,24 +274,53 @@ if(dist(tx, ty, qx3, qy3)<raio*3){
     }
     
   if(dist(tx, ty, qx6, qy6)<raio*3){
-   pontos=pontos+50
+   pontos=pontos+25
    qx6=random(1080,1500)
   qy6=random(0,700)
   }
   
   
   
+  } 
+    
+    
+    
+    
+
+    
+    }
+  if(nivel==4){
+    tela=4
+    
+    }
+ if(vidas==0){
+    tela=3
+      
+  
+    
   }
+  if(tela==3){
+       background(0);
+    textSize(32); 
+    fill(0,100,500);
+    text("GAME OVER ", 400, 300);
+    text("press ENTER para voltar para jogar novamente", 200, 450)
+    if(keyIsDown(ENTER)){
+       tela=1
+      
+    } 
+      }
+  if(tela==4){
+       background(0);
+    textSize(32); 
+    fill(0,100,500);
+    text("VOCê VENCEU!", 400, 300);
+    text("press ENTER para voltar para o início ", 200, 450)
+    if(keyIsDown(ENTER)){
+       tela =1;  
+  
 
-
-
-
-
-
-
-
-
-
-
+}
+  }
 
 }
