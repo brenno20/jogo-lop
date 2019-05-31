@@ -1,0 +1,283 @@
+var ex, ey
+//player
+vellateral=5
+velvertical=8
+ex=50
+ey=350
+//inimigo 1 (nivel 1)
+qx1=2000
+qy1=100
+//inimigo 2 (nivel 1)
+qx2=2000
+qy2=400
+//inimigo 3 (nivel 2)
+qx3=2000
+qy3=200
+//inimigo 4 (nivel 2)
+qx4=2000
+qy4=500
+//inimigo 5 
+qx5=2000
+qy5=600
+//inimigo 6
+qx6=2000
+qy6=650
+//disparo
+vel=15
+disparo=false
+var ty,tx
+//placar
+var vidas = 5
+var pontos = 0
+nivel=1
+let imgnave;
+var raio=20
+var barreiradepontos=1000
+
+
+function preload() {
+  fundo=loadImage('Background-1.png')
+  imgnave = loadImage('ship_87.png');
+  imginimigo = loadImage('ship_25.png');
+}
+
+function setup() {
+  createCanvas(1080, 720);
+  //xdo = 50;	
+  //ydo = 440; 
+  frameRate(100)
+}
+
+function draw() {
+
+  
+  background(0);
+  imageMode(CENTER)
+  //ellipse(ex,ey,40,40)  
+  image(imgnave,ex,ey)
+  
+  if(disparo == true){
+     
+     tx = tx + vel
+     if(tx >= 600 || tx<=0){
+       vel = 15
+       disparo = false 
+     }
+  }
+    if(ex>=1080){
+      ex=1080
+    }
+    if(ex<=0){
+      ex=0
+    }
+    if(ey<=0){
+      ey=0
+    }
+    if(ey>=700){
+      ey=700
+    }
+  //inimigos
+  //ellipse(qx1,qy1,2*raio,2*raio)
+  image(imginimigo,qx1,qy1)
+  // ellipse(qx2,qy2,2*raio,2*raio)
+ image(imginimigo,qx2,qy2)
+  //movimentaçao com teclado
+if (keyIsDown(LEFT_ARROW)) {
+    ex =ex- vellateral;
+  }
+
+  if (keyIsDown(RIGHT_ARROW)) {
+    ex=ex+ vellateral;
+  }
+
+  if (keyIsDown(UP_ARROW)) {
+    ey =ey- velvertical;
+  }
+
+  if (keyIsDown(DOWN_ARROW)) {
+    ey =ey+ velvertical;
+  }
+
+  qx1=qx1-random(10)
+  qx2=qx2-random(15)
+if(qx1<=0){
+  qx1=random(1080,1500)
+  qy1=random(0,700)
+  
+}
+if(qx2<=0){
+  qx2=random(1080,1500)
+  qy2=random(0,700)
+
+}
+//disparo
+if(disparo == true){
+     ellipse(tx,ty,10,10)
+     tx = tx + vel
+     if(tx >= 1080|| tx<=0){
+       vel = 15
+       disparo = false 
+     }
+
+}
+  if(dist(tx, ty, qx2, qy2)<raio*2){
+      pontos=pontos+50
+    qx2=random(1080,1500)
+  qy2=random(0,700)
+
+  
+  }
+  if(dist(tx, ty, qx1, qy1)<raio*2){
+      pontos=pontos+50
+    qx1=random(1080,1500)
+    qy1=random(0,700)
+  
+  }
+  
+  
+    if(keyCode === CONTROL){  
+    if(disparo == false){
+      disparo = true
+      tx = ex + 40
+      ty = ey
+      
+    }
+ 
+  }
+  //textos na tela
+  textSize(20);
+  text('PONTOS: '+ pontos , 10, 30);
+  text('NIVEL: '+ nivel , 250, 30);
+  text('VIDAS: '+ vidas , 500,30);
+fill(300, 300, 300);
+  //colisao
+  if(dist(ex, ey, qx1, qy1)<raio*3){
+    ex=50
+    ey=350
+    vidas=vidas-1
+    qx1=random(1080,1500)
+    qy1=random(0,700)
+    
+  }
+ if(dist(ex, ey, qx2, qy2)<raio*3){
+    ex=50
+    ey=350
+    vidas=vidas-1
+   qx2=random(1080,1500)
+  qy2=random(0,700)
+
+}
+  if(pontos>=barreiradepontos){
+    nivel=nivel+1
+    barreiradepontos=barreiradepontos+1000
+}
+  //NIVEL 2
+  if(nivel>=2){
+    vellateral=8
+    velvertical=10
+    //ellipse(qx3,qy3,2*raio,2*raio)
+    image(imginimigo,qx3,qy3)
+    qx3=qx3-random(12)
+  
+    if(qx3<=0){
+      qx3=random(1080,1500)
+      qy3=random(0,700)
+      
+    }
+   // ellipse(qx4,qy4,2*raio,2*raio)
+    image(imginimigo,qx4,qy4)
+      qx4=qx4-random(15)
+    if(qx4<=0){
+        qx4=random(1080,1500)
+        qy4=random(0,700)
+  }
+if(dist(tx, ty, qx3, qy3)<raio*3){
+   pontos=pontos+50
+   qx3=random(1080,1500)
+  qy3=random(0,700)
+  }
+    if(dist(ex, ey, qx3, qy3)<raio*3){
+    ex=50
+    ey=350
+    vidas=vidas-1
+    qx3=random(1080,1500)
+    qy3=random(0,700)
+    }
+    if(dist(ex, ey, qx4, qy4)<raio*3){
+    ex=50
+    ey=350
+    vidas=vidas-1
+    qx4=random(1080,1500)
+    qy4=random(0,700)
+    }
+      
+    if(dist(tx, ty, qx4, qy4)<raio*3){
+    pontos=pontos+50
+    vidas=vidas-1
+   qx4=random(1080,1500)
+  qy4=random(0,700)
+  }
+}
+  //NIVEL 3
+  if(nivel>=3){
+    
+    vellateral=10
+    velvertical=12
+    //ellipse(qx5,qy5,2*raio,2*raio)
+    image(imginimigo,qx5,qy5)
+      qx5=qx5-random(20)
+    if(qx5<=0){
+        qx5=random(1080,1500)
+        qy5=random(0,700)
+    
+    }
+    if(dist(ex, ey, qx6,qy6)<raio*3){
+    ex=50
+    ey=350
+    vidas=vidas-1
+    qx6=random(1080,1500)
+    qy6=random(0,700)
+    }
+    if(dist(ex, ey, qx5, qy5)<raio*3){
+    ex=50
+    ey=350
+    vidas=vidas-1
+    qx5=random(1080,1500)
+    qy5andom(0,700)
+    }
+    if(dist(tx, ty, qx5, qy5)<raio*3){
+   pontos=pontos+50
+   qx5=random(1080,1500)
+  qy5=random(0,700)
+  }
+    //ellipse(qx6,qy6,2*raio,2*raio)
+    image(imginimigo,qx6,qy6)
+      qx6=qx6-random(20)
+    if(qx6<=0){
+        qx6=random(1080,1500)
+        qy6=random(0,700)
+    
+    }
+    
+  if(dist(tx, ty, qx6, qy6)<raio*3){
+   pontos=pontos+50
+   qx6=random(1080,1500)
+  qy6=random(0,700)
+  }
+  
+  
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+}
