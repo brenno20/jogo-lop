@@ -16,10 +16,10 @@ qy3=200
 //inimigo 4 (nivel 2)
 qx4=2000
 qy4=500
-//inimigo 5 
+//inimigo 5 (nivel 3)
 qx5=2000
 qy5=600
-//inimigo 6
+//inimigo 6 (nivel 3)
 qx6=2000
 qy6=650
 //disparo
